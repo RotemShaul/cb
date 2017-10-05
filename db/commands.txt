@@ -1,0 +1,9 @@
+CREATE TABLE neo (
+  id int unsigned auto_increment not null,
+  ts datetime not null,                     
+  sentiment decimal(7,5) not null,   
+  primary key (id),
+  index(ts)
+);
+
+
