@@ -7,3 +7,16 @@ CREATE TABLE neo (
 );
 
 
+get min:
+select sentiment, ts from neo where ts=(select min(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR));
+
+get max:
+select sentiment, ts from neo where ts=(select max(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR));
+
+select sentiment, ts from neo where ts=(select min(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR))
+union all
+select sentiment, ts from neo where ts=(select max(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR));
+
+
+select * from ( select sentiment, ts from neo where ts=(select min(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR)) union all select sentiment
+, ts from neo where ts=(select max(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR))) as t order by ts;
