@@ -20,3 +20,6 @@ select sentiment, ts from neo where ts=(select max(ts) from neo where ts >= DATE
 
 select * from ( select sentiment, ts from neo where ts=(select min(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR)) union all select sentiment
 , ts from neo where ts=(select max(ts) from neo where ts >= DATE_SUB(NOW(),INTERVAL 1 HOUR))) as t order by ts;
+
+
+select sentiment from btc order by ts desc limit 1;
